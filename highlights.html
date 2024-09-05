@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>CV - Sebastian Reinig</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Responsive Resume Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
+    <link rel="shortcut icon" href="favicon.ico"> 
+    
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+    
+    <!-- FontAwesome JS-->
+	<script defer src="assets/fontawesome/js/all.min.js"></script>
+       
+    <!-- Theme CSS -->  
+    <link id="theme-style" rel="stylesheet" href="assets/css/pillar-1.css">
+
+
+</head> 
+
+<body>	
+
+    <article class="resume-wrapper text-center position-relative">
+	    <div class="resume-wrapper-inner mx-auto text-start bg-white shadow-lg">
+		    <header class="resume-header pt-4 pt-md-0">
+			    <div class="row">
+				    <div class="col-block col-md-auto resume-picture-holder text-center text-md-start">
+				        <img class="picture" src="assets/images/profile.jpg" alt="">
+				    </div><!--//col-->
+				    <div class="col">
+					    <div class="row p-4 justify-content-center justify-content-md-between">
+						    <div class="primary-info col-auto">
+							    <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">Sebastian Reinig</h1>
+							    <div class="title mb-3">M.Sc. Wirtschaftinformatik</div>
+							    <ul class="list-unstyled">
+								    <li class="mb-2"><a class="text-link" href="mailto:sebastianreinig@gmail.com"><i class="far fa-envelope fa-fw me-2" data-fa-transform="grow-3"></i>sebastianreinig@gmail.com</a></li>
+								    <li><a class="text-link" href="tel:015164410258"><i class="fas fa-mobile-alt fa-fw me-2" data-fa-transform="grow-6"></i>0151 644 10258</a></li>
+							    </ul>
+						    </div><!--//primary-info-->
+						    <div class="secondary-info col-auto mt-2">
+							    <ul class="resume-social list-unstyled">
+					                <li class="mb-3"><a class="text-link" target ="_blank" href="https://www.linkedin.com/in/sebastian-reinig/"><span class="fa-container text-center me-2"><i class="fab fa-linkedin-in fa-fw"></i></span>linkedin.com/in/sebastian-reinig</a></li>
+					                <li><a class="text-link" target="_blank" href="https://sebastianreinig.com"><span class="fa-container text-center me-2"><i class="fas fa-globe"></i></span>sebastianreinig.com</a></li>
+							    </ul>
+						    </div><!--//secondary-info-->
+					    </div><!--//row-->
+					    
+				    </div><!--//col-->
+			    </div><!--//row-->
+		    </header>
+		    <div class="resume-body p-5">
+			    <section class="resume-section summary-section mb-5">
+				    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Einleitung</h2>
+				    <div class="resume-section-content">
+					    <p class="mb-0">
+							Gerne möchte ich Ihnen im Folgenden einige besondere Höhepunkte meiner beruflichen Laufbahn vorstellen. Diese umfassen Projekte, Workshops, Seminare, Vorträge und andere prägende Ereignisse, die ich selbst erlebt habe und die mir besonders in Erinnerung geblieben sind.
+							
+						</p>
+						<br />
+							<p>Zurück zu meinem Lebenslauf: <a href="./index.html">Lebenslauf</a></p>
+
+
+				    </div>
+			    </section><!--//summary-section-->
+			    <div class="row">
+				    <div class="">
+					    <section class="resume-section experience-section mb-5">
+						    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Highlights</h2>
+						    <div class="resume-section-content">
+							    <div class="resume-timeline position-relative">
+		
+									<div id="data-container"></div>
+									<script>
+										// Funktion zum Laden der JSON-Daten aus einer Datei
+										async function loadJsonData() {
+											try {
+												// Fetch die Daten aus der Datei highlights.json
+												const response = await fetch('highlights.json');
+												if (!response.ok) {
+													throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+												}
+												const jsonData = await response.json();
+								
+												// Sortiere die Daten nach dem Datum absteigend
+												jsonData.sort((a, b) => {
+													// Split Datum in Monat und Jahr und erstelle Date-Objekte zum Vergleichen
+													const [monthA, yearA] = a.Datum.split('.').map(Number);
+													const [monthB, yearB] = b.Datum.split('.').map(Number);
+													const dateA = new Date(yearA, monthA - 1); // Monat im Date-Objekt ist 0-basiert
+													const dateB = new Date(yearB, monthB - 1);
+													
+													return dateB - dateA; // Absteigend sortieren
+												});
+								
+												// Daten in HTML darstellen
+												displayData(jsonData);
+											} catch (error) {
+												console.error('Fehler beim Laden der JSON-Daten:', error);
+											}
+										}
+								
+										// Funktion zum Darstellen der Daten als HTML
+										function displayData(data) {
+											const container = document.getElementById('data-container');
+								
+											// Iteriere über das JSON-Array und erstelle HTML-Elemente
+											data.forEach(item => {
+												// Erstelle das Hauptartikel-Element
+												const article = document.createElement('article');
+												article.className = 'resume-timeline-item position-relative pb-5';
+								
+												// Erstelle den Header des Artikels
+												const headerDiv = document.createElement('div');
+												headerDiv.className = 'resume-timeline-item-header mb-2';
+								
+												const headerContent = `
+													<div class="d-flex flex-column flex-md-row">
+														<h3 class="resume-position-title font-weight-bold mb-1">${item.Titel}</h3>
+													</div>
+													<div class="resume-position-time">${item.Datum}</div>
+												`;
+												headerDiv.innerHTML = headerContent;
+								
+												// Erstelle die Beschreibung des Artikels
+												const descDiv = document.createElement('div');
+												descDiv.className = 'resume-timeline-item-desc';
+								
+												// Body-Text hinzufügen
+												const bodyContent = `<p>${item.Body}</p></ br>`;
+												descDiv.innerHTML = bodyContent;
+								
+												linebreak = document.createElement("br");
+
+												// Bilder hinzufügen, falls vorhanden
+												if (item.Bild1) {
+													const img1 = document.createElement('img');
+													img1.src = item.Bild1;
+													img1.style.width = "50%";
+													img1.alt = "Bild 1";
+													descDiv.appendChild(img1);
+												}
+												if (item.Bild2) {
+													const img2 = document.createElement('img');
+													img2.src = item.Bild2;
+													img2.style.width = "50%";
+													img2.alt = "Bild 2";
+													descDiv.appendChild(img2);
+												}
+												if (item.Bild3) {
+													const img3 = document.createElement('img');
+													img3.src = item.Bild3;
+													img3.style.width = "50%";
+													img3.alt = "Bild 3";
+													descDiv.appendChild(img3);
+												}
+												if (item.Link) {
+													const link = document.createElement('a');
+													link.href = item.Link;
+													link.textContent = "Mehr erfahren";
+													link.target = "_blank"; // Öffne den Link in einem neuen Tab
+													descDiv.appendChild(linebreak);
+													descDiv.appendChild(link);
+												}
+								
+												// Füge Header und Beschreibung zum Artikel hinzu
+												article.appendChild(headerDiv);
+												article.appendChild(descDiv);
+								
+												// Füge den Artikel zum Container hinzu
+												container.appendChild(article);
+											});
+										}
+								
+										// Rufe die Funktion auf, um die Daten aus der Datei zu laden und anzuzeigen
+										loadJsonData();
+									</script>
+							    </div><!--//resume-timeline-->
+							    
+						    </div>
+					    </section><!--//experience-section-->
+				    </div>
+				
+				    </div><!--//row-->
+		    </div><!--//resume-body-->
+		    
+		    
+	    </div>
+    </article> 
+
+    
+    <footer class="footer text-center pt-2 pb-5">
+	    <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+        <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+    </footer>
+
+    
+
+</body>
+</html> 
+
